@@ -164,13 +164,13 @@ Décrivez les changements apportés...
 export class ExampleComponent {
   // Utiliser inject() au lieu du constructeur
   private service = inject(MyService);
-  
+
   // Utiliser signals pour l'état
   data = signal<MyData[]>([]);
   loading = signal(false);
-  
+
   // Utiliser computed pour les valeurs dérivées
-  filteredData = computed(() => 
+  filteredData = computed(() =>
     this.data().filter(item => item.active)
   );
 }

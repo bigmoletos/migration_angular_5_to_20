@@ -1,16 +1,20 @@
-# 🚀 Outil de Migration Angular 5 → Angular 20
+# 🚀 Outil de Migration Angular 5 → Angular 20 (Java Backend)
 
-Outil automatisé pour migrer vos projets Angular 5 vers Angular 20, compatible avec tous types de backends (Java, Python, Node.js, .NET, PHP, etc.).
+Outil automatisé pour migrer vos projets Angular 5 vers Angular 20 avec **intégration Java Spring Boot**, support **Protractor/Cypress**, **Jenkins CI/CD**, et **SDK** pour les équipes produits.
 
 ## ✨ Fonctionnalités
 
-- 🔍 **Détection automatique** du type de backend
-- 🎯 **Migration ciblée** des composants Angular uniquement
+- ☕ **Intégration Java Spring Boot** optimisée
+- 🔍 **Détection automatique** des patterns Angular 5 + Java
+- 🎯 **Migration ciblée** des composants Angular avec préservation des APIs Java
 - 📊 **Rapports détaillés** en HTML, JSON et Markdown
 - 🔄 **Migration en lot** pour traiter plusieurs projets
+- 🧪 **Support Protractor → Cypress** pour les tests E2E
+- 🚀 **Jenkins CI/CD** intégration
+- 📦 **SDK** pour les équipes produits
 - 🎮 **Mode interactif** pour guider la migration
 - 🛡️ **Sauvegarde automatique** avant migration
-- 📝 **Analyse complète** des patterns Angular 5
+- 📝 **Analyse complète** des patterns Angular 5 + Java
 
 ## 🏗️ Architecture
 
@@ -78,18 +82,23 @@ npm run migrate -- batch -d /chemin/vers/repertoire
 npm run migrate -- batch -d /chemin/vers/repertoire --backend-types Java,Python
 ```
 
-## 🎯 Types de Backends Supportés
+## ☕ Intégration Java Spring Boot
 
-L'outil détecte automatiquement le type de backend et s'adapte :
+### **Stack Technologique Optimisée**
+- **☕ Backend** : Java 17+ / Spring Boot 3+
+- **🅰️ Frontend** : Angular 5 → Angular 20
+- **🧪 Testing** : Protractor + Cypress
+- **🚀 CI/CD** : Jenkins
+- **📦 Build** : Maven + npm
+- **🔧 SDK** : Custom SDK pour équipes produits
 
-- ☕ **Java** : Spring Boot, Maven, Gradle
-- 🐍 **Python** : Django, Flask, FastAPI
-- 🟢 **Node.js** : Express, NestJS, Koa
-- 🔷 **.NET** : ASP.NET Core, Web API
-- 🐘 **PHP** : Laravel, Symfony
-- 🦀 **Rust** : Actix, Rocket
-- 🐹 **Go** : Gin, Echo
-- 💎 **Ruby** : Rails, Sinatra
+### **Fonctionnalités Java Spécifiques**
+- **Détection automatique** des patterns Java + Angular 5
+- **Préservation des APIs** Java Spring Boot
+- **Migration des tests** Protractor → Cypress
+- **Optimisation Jenkins** pour Java + Angular
+- **SDK personnalisé** pour les équipes produits
+- **Support Maven + npm** dual build system
 
 ## 🔧 Transformations Appliquées
 

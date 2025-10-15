@@ -1,12 +1,15 @@
 # Angular Development Rules for Cursor AI
 
 ## 🎯 Project Context
-This is an Angular migration tool project that helps migrate Angular 5 projects to Angular 20. The project includes:
-- Migration engine with backend-agnostic support
-- Angular 5 pattern detection and analysis
+This is an Angular migration tool project that helps migrate Angular 5 projects to Angular 20 with **Java backend integration**. The project includes:
+- Migration engine with **Java Spring Boot** backend support
+- Angular 5 pattern detection and analysis for **Java ecosystems**
 - Modernization transformers (standalone components, signals, control flow)
-- Automated migration scripts
-- Comprehensive documentation and guides
+- **Java-specific** automated migration scripts
+- **Java + Angular** comprehensive documentation and guides
+- **Protractor, Cypress, Jenkins** integration support
+- **npm + Maven** build system support
+- **SDK** for product teams
 
 ## 🏗️ Angular Development Standards
 
@@ -190,11 +193,15 @@ describe('MigrationEngine', () => {
 - Add **typed forms** with FormGroup<Interface>
 - Implement **Signals** for reactive state
 
-### Backend Compatibility
-- Support **Java, Python, Node.js, .NET, PHP** backends
-- Detect backend type **automatically**
-- Focus on **frontend Angular migration only**
-- Preserve **backend integration** points
+### Java Backend Integration
+- **Primary focus**: Java Spring Boot backend integration
+- Support **Java 17+** and **Spring Boot 3+**
+- **Maven/Gradle** build system integration
+- **Protractor + Cypress** E2E testing
+- **Jenkins** CI/CD pipeline support
+- **npm + Maven** dual package management
+- **SDK** development for product teams
+- Preserve **Java API** integration points
 
 ## 🎨 Code Style Guidelines
 
@@ -246,11 +253,16 @@ describe('MigrationEngine', () => {
 
 ## 🎯 Project-Specific Rules
 
-### Migration Engine
-- Support **multiple Angular versions** (5-20)
-- Handle **different backend types** automatically
-- Provide **detailed migration reports**
-- Implement **rollback capabilities**
+### Java Backend Migration Engine
+- Support **Angular 5 → 20** migration with **Java Spring Boot**
+- Handle **Java 17+** and **Spring Boot 3+** compatibility
+- **Maven/Gradle** build system integration
+- **Protractor → Cypress** E2E testing migration
+- **Jenkins** CI/CD pipeline optimization
+- **npm + Maven** dual package management
+- **SDK** development for product teams
+- Provide **Java-specific** migration reports
+- Implement **Java API** integration preservation
 
 ### Code Transformers
 - Transform **Angular 5 patterns** to modern equivalents
