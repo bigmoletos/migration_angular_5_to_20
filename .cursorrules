@@ -1,0 +1,308 @@
+# Angular Development Rules for Cursor AI
+
+## 🎯 Project Context
+This is an Angular migration tool project that helps migrate Angular 5 projects to Angular 20. The project includes:
+- Migration engine with backend-agnostic support
+- Angular 5 pattern detection and analysis
+- Modernization transformers (standalone components, signals, control flow)
+- Automated migration scripts
+- Comprehensive documentation and guides
+
+## 🏗️ Angular Development Standards
+
+### Architecture & Components
+- Use **Standalone Components** (Angular 14+) instead of NgModules when possible
+- Prefer **inject() function** over constructor injection (Angular 16+)
+- Use **Signals** for reactive state management (Angular 16+)
+- Implement **Typed Forms** with FormGroup<Interface> (Angular 14+)
+- Use **New Control Flow** syntax (@if, @for, @switch) instead of *ngIf, *ngFor (Angular 17+)
+
+### Code Quality
+- Follow **SOLID principles** and clean architecture
+- Use **TypeScript strict mode** with proper typing
+- Implement **error handling** with try/catch blocks
+- Use **logging** instead of console.log for production code
+- Write **comprehensive tests** for all critical functions
+- Use **JSDoc comments** for public APIs
+
+### Performance
+- Implement **OnPush change detection** strategy when appropriate
+- Use **trackBy functions** for *ngFor loops
+- Prefer **computed signals** over complex reactive chains
+- Implement **lazy loading** for large modules
+- Use **tree shaking** friendly imports
+
+## 🔧 Angular-Specific Rules
+
+### Component Structure
+```typescript
+// Preferred component structure
+@Component({
+  selector: 'app-feature',
+  standalone: true,
+  imports: [CommonModule, ReactiveFormsModule],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: `...`,
+  styles: [`...`]
+})
+export class FeatureComponent {
+  // Use inject() for dependencies
+  private service = inject(MyService);
+
+  // Use signals for state
+  data = signal<MyData[]>([]);
+  loading = signal(false);
+
+  // Use computed for derived state
+  filteredData = computed(() =>
+    this.data().filter(item => item.active)
+  );
+}
+```
+
+### Service Structure
+```typescript
+// Preferred service structure
+@Injectable({
+  providedIn: 'root'
+})
+export class MyService {
+  private http = inject(HttpClient);
+
+  // Use signals for reactive state
+  data = signal<MyData[]>([]);
+  loading = signal(false);
+
+  // Async methods with proper error handling
+  async loadData(): Promise<void> {
+    this.loading.set(true);
+    try {
+      const data = await this.http.get<MyData[]>('/api/data').toPromise();
+      this.data.set(data);
+    } catch (error) {
+      console.error('Error loading data:', error);
+      throw error;
+    } finally {
+      this.loading.set(false);
+    }
+  }
+}
+```
+
+### Migration Patterns
+- **Angular 5 → Angular 20**: Focus on standalone components, signals, and modern control flow
+- **NgModules → Standalone**: Convert modules to standalone components with proper imports
+- **Constructor Injection → inject()**: Replace constructor injection with inject() function
+- **Observables → Signals**: Migrate reactive state from Observables to Signals
+- **Old Control Flow → New Control Flow**: Replace *ngIf/*ngFor with @if/@for
+
+## 📝 Documentation Standards
+
+### Code Comments
+- Use **JSDoc** for all public methods and classes
+- Include **@param** and **@returns** documentation
+- Add **@example** for complex functions
+- Document **migration patterns** and breaking changes
+
+### File Organization
+```
+src/
+├── core/                    # Core migration engine
+├── analyzers/              # Pattern analyzers
+├── transformers/           # Code transformers
+├── utils/                  # Utility functions
+├── types/                  # TypeScript definitions
+├── scripts/               # Automation scripts
+└── __tests__/             # Test files
+```
+
+## 🧪 Testing Standards
+
+### Test Structure
+- Use **Jest** for unit testing
+- Write **integration tests** for migration workflows
+- Mock **external dependencies** properly
+- Test **error scenarios** and edge cases
+- Use **describe/it** structure with clear descriptions
+
+### Test Examples
+```typescript
+describe('MigrationEngine', () => {
+  let engine: MigrationEngine;
+
+  beforeEach(() => {
+    engine = new MigrationEngine();
+  });
+
+  it('should analyze Angular 5 project correctly', async () => {
+    const result = await engine.analyzeProject('/path/to/project');
+    expect(result.currentVersion).toBe('5.0.0');
+    expect(result.files.length).toBeGreaterThan(0);
+  });
+
+  it('should handle migration errors gracefully', async () => {
+    await expect(engine.migrateProject('/invalid/path'))
+      .rejects.toThrow('Project not found');
+  });
+});
+```
+
+## 🚀 Performance Guidelines
+
+### Bundle Optimization
+- Use **tree shaking** friendly imports
+- Implement **lazy loading** for large features
+- Use **OnPush** change detection strategy
+- Minimize **bundle size** with proper imports
+
+### Memory Management
+- Avoid **memory leaks** with proper cleanup
+- Use **takeUntil** pattern for Observables (when not using Signals)
+- Implement **proper unsubscription** in components
+- Use **weak references** for large objects
+
+## 🔒 Security Guidelines
+
+### Input Validation
+- Validate **all user inputs** before processing
+- Use **TypeScript strict mode** for type safety
+- Implement **proper error handling** without exposing internals
+- Sanitize **file paths** and user data
+
+### Code Security
+- Never expose **API keys** or sensitive data
+- Use **environment variables** for configuration
+- Implement **proper authentication** checks
+- Validate **file system access** permissions
+
+## 📊 Migration-Specific Rules
+
+### Angular 5 Detection
+- Look for **@angular/core version 5.x** in package.json
+- Detect **NgModule patterns** and constructor injection
+- Identify **old control flow** directives (*ngIf, *ngFor)
+- Find **untyped forms** and deprecated APIs
+
+### Modernization Targets
+- Convert **NgModules to Standalone Components**
+- Replace **constructor injection with inject()**
+- Migrate ***ngIf/*ngFor to @if/@for**
+- Add **typed forms** with FormGroup<Interface>
+- Implement **Signals** for reactive state
+
+### Backend Compatibility
+- Support **Java, Python, Node.js, .NET, PHP** backends
+- Detect backend type **automatically**
+- Focus on **frontend Angular migration only**
+- Preserve **backend integration** points
+
+## 🎨 Code Style Guidelines
+
+### TypeScript
+- Use **strict mode** with proper typing
+- Prefer **interfaces** over types for object shapes
+- Use **enums** for constants
+- Implement **proper error types**
+
+### Angular
+- Use **standalone components** by default
+- Prefer **signals** over observables for state
+- Use **computed signals** for derived state
+- Implement **proper change detection** strategies
+
+### File Naming
+- Use **kebab-case** for file names
+- Use **PascalCase** for class names
+- Use **camelCase** for variables and methods
+- Use **UPPER_CASE** for constants
+
+## 🔍 Code Analysis Rules
+
+### Static Analysis
+- Use **ESLint** with Angular-specific rules
+- Implement **TypeScript strict mode**
+- Use **Prettier** for code formatting
+- Run **type checking** before commits
+
+### Dynamic Analysis
+- Write **comprehensive tests** for all paths
+- Test **error scenarios** and edge cases
+- Implement **performance monitoring**
+- Use **code coverage** tools
+
+## 📚 Documentation Requirements
+
+### API Documentation
+- Document **all public methods** with JSDoc
+- Include **usage examples** for complex APIs
+- Document **migration patterns** and examples
+- Provide **troubleshooting guides**
+
+### User Documentation
+- Write **clear README** with setup instructions
+- Document **migration workflows** step by step
+- Provide **examples** for common use cases
+- Include **troubleshooting** section
+
+## 🎯 Project-Specific Rules
+
+### Migration Engine
+- Support **multiple Angular versions** (5-20)
+- Handle **different backend types** automatically
+- Provide **detailed migration reports**
+- Implement **rollback capabilities**
+
+### Code Transformers
+- Transform **Angular 5 patterns** to modern equivalents
+- Preserve **code functionality** during migration
+- Add **proper error handling** to transformed code
+- Implement **validation** for transformed code
+
+### Analysis Tools
+- Detect **Angular 5 specific patterns**
+- Identify **migration opportunities**
+- Provide **detailed recommendations**
+- Generate **comprehensive reports**
+
+## 🚨 Error Handling
+
+### Migration Errors
+- Provide **clear error messages** with context
+- Include **suggestions** for fixing issues
+- Log **detailed error information** for debugging
+- Implement **graceful degradation** when possible
+
+### User Errors
+- Validate **input parameters** before processing
+- Provide **helpful error messages** for users
+- Include **examples** of correct usage
+- Implement **input validation** with clear feedback
+
+## 📈 Performance Monitoring
+
+### Metrics
+- Track **migration success rates**
+- Monitor **processing times** for large projects
+- Measure **memory usage** during migration
+- Report **performance improvements** after migration
+
+### Optimization
+- Implement **parallel processing** where possible
+- Use **caching** for repeated operations
+- Optimize **file I/O operations**
+- Implement **progress tracking** for long operations
+
+---
+
+## 🎉 Summary
+
+This project follows modern Angular development practices with a focus on:
+- **Standalone Components** and modern architecture
+- **Signals** for reactive state management
+- **TypeScript strict mode** for type safety
+- **Comprehensive testing** and error handling
+- **Performance optimization** and best practices
+- **Security** and input validation
+- **Clear documentation** and user guidance
+
+Always prioritize **code quality**, **performance**, and **user experience** when making development decisions.
