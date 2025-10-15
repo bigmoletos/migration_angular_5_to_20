@@ -59,54 +59,54 @@ java-angular-migration-project/
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0">
     <modelVersion>4.0.0</modelVersion>
-    
+
     <groupId>com.company</groupId>
     <artifactId>java-angular-migration</artifactId>
     <version>1.0.0</version>
     <packaging>jar</packaging>
-    
+
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>3.1.0</version>
         <relativePath/>
     </parent>
-    
+
     <properties>
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
     </properties>
-    
+
     <dependencies>
         <!-- Spring Boot Starters -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-security</artifactId>
         </dependency>
-        
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-websocket</artifactId>
         </dependency>
-        
+
         <!-- Database -->
         <dependency>
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <scope>runtime</scope>
         </dependency>
-        
+
         <!-- Testing -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -114,14 +114,14 @@ java-angular-migration-project/
             <scope>test</scope>
         </dependency>
     </dependencies>
-    
+
     <build>
         <plugins>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-            
+
             <!-- Frontend Maven Plugin -->
             <plugin>
                 <groupId>com.github.eirslett</groupId>
@@ -441,26 +441,26 @@ export default defineConfig({
 ```groovy
 pipeline {
     agent any
-    
+
     tools {
         maven 'Maven-3.8.6'
         nodejs 'NodeJS-18.17.0'
         jdk 'JDK-17'
     }
-    
+
     environment {
         JAVA_HOME = tool 'JDK-17'
         MAVEN_HOME = tool 'Maven-3.8.6'
         NODE_HOME = tool 'NodeJS-18.17.0'
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
+
         stage('Backend Tests') {
             steps {
                 dir('backend') {
@@ -473,7 +473,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Frontend Tests') {
             steps {
                 dir('frontend') {
@@ -495,7 +495,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('E2E Tests - Protractor') {
             steps {
                 dir('frontend') {
@@ -503,7 +503,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('E2E Tests - Cypress') {
             steps {
                 dir('frontend') {
@@ -511,7 +511,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build Backend') {
             steps {
                 dir('backend') {
@@ -519,7 +519,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
@@ -527,7 +527,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Integration Tests') {
             steps {
                 sh 'docker-compose up -d'
@@ -535,7 +535,7 @@ pipeline {
                 sh 'docker-compose down'
             }
         }
-        
+
         stage('Deploy to Staging') {
             when {
                 branch 'develop'
@@ -545,7 +545,7 @@ pipeline {
                 sh 'docker push registry.company.com/java-angular-app:staging'
             }
         }
-        
+
         stage('Deploy to Production') {
             when {
                 branch 'main'
@@ -556,7 +556,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             cleanWs()
@@ -665,7 +665,7 @@ services:
       - SPRING_PROFILES_ACTIVE=docker
     volumes:
       - ./backend/target:/app/target
-  
+
   frontend:
     build: ./frontend
     ports:

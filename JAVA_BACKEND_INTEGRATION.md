@@ -39,20 +39,20 @@ java-angular-project/
 export class JavaBackendService {
   private http = inject(HttpClient);
   private baseUrl = environment.javaApiUrl; // http://localhost:8080/api
-  
+
   // Endpoints Java Spring Boot
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users`);
   }
-  
+
   createUser(user: User): Observable<User> {
     return this.http.post<User>(`${this.baseUrl}/users`, user);
   }
-  
+
   updateUser(id: number, user: User): Observable<User> {
     return this.http.put<User>(`${this.baseUrl}/users/${id}`, user);
   }
-  
+
   deleteUser(id: number): Observable<void> {
     return this.http.delete<void>(`${this.baseUrl}/users/${id}`);
   }
@@ -150,13 +150,13 @@ describe('Angular Java Integration', () => {
     expect(element(by.css('app-user-list')).isPresent()).toBe(true);
     expect(element(by.css('.user-item')).count()).toBeGreaterThan(0);
   });
-  
+
   it('should create user via Java API', () => {
     browser.get('/users/create');
     element(by.css('input[name="name"]')).sendKeys('John Doe');
     element(by.css('input[name="email"]')).sendKeys('john@example.com');
     element(by.css('button[type="submit"]')).click();
-    
+
     expect(element(by.css('.success-message')).isPresent()).toBe(true);
   });
 });
@@ -169,29 +169,29 @@ describe('Java Backend Integration', () => {
   beforeEach(() => {
     cy.visit('/');
   });
-  
+
   it('should load users from Java API', () => {
     cy.intercept('GET', 'http://localhost:8080/api/users', {
       fixture: 'users.json'
     }).as('getUsers');
-    
+
     cy.visit('/users');
     cy.wait('@getUsers');
     cy.get('[data-cy="user-list"]').should('be.visible');
     cy.get('[data-cy="user-item"]').should('have.length.greaterThan', 0);
   });
-  
+
   it('should create user via Java API', () => {
     cy.intercept('POST', 'http://localhost:8080/api/users', {
       statusCode: 201,
       body: { id: 1, name: 'John Doe', email: 'john@example.com' }
     }).as('createUser');
-    
+
     cy.visit('/users/create');
     cy.get('[data-cy="name-input"]').type('John Doe');
     cy.get('[data-cy="email-input"]').type('john@example.com');
     cy.get('[data-cy="submit-button"]').click();
-    
+
     cy.wait('@createUser');
     cy.get('[data-cy="success-message"]').should('be.visible');
   });
@@ -204,10 +204,10 @@ describe('Java Backend Integration', () => {
 @SpringBootTest
 @AutoConfigureTestDatabase
 class UserControllerTest {
-    
+
     @Autowired
     private TestRestTemplate restTemplate;
-    
+
     @Test
     void shouldGetUsers() {
         ResponseEntity<List<User>> response = restTemplate.exchange(
@@ -216,21 +216,21 @@ class UserControllerTest {
             null,
             new ParameterizedTypeReference<List<User>>() {}
         );
-        
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.OK);
         assertThat(response.getBody()).isNotEmpty();
     }
-    
+
     @Test
     void shouldCreateUser() {
         User user = new User("John Doe", "john@example.com");
-        
+
         ResponseEntity<User> response = restTemplate.postForEntity(
             "/api/users",
             user,
             User.class
         );
-        
+
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.CREATED);
         assertThat(response.getBody().getName()).isEqualTo("John Doe");
     }
@@ -243,19 +243,19 @@ class UserControllerTest {
 ```groovy
 pipeline {
     agent any
-    
+
     tools {
         maven 'Maven-3.8.6'
         nodejs 'NodeJS-18.17.0'
     }
-    
+
     stages {
         stage('Checkout') {
             steps {
                 checkout scm
             }
         }
-        
+
         stage('Backend Tests') {
             steps {
                 dir('backend') {
@@ -263,7 +263,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Frontend Tests') {
             steps {
                 dir('frontend') {
@@ -272,7 +272,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('E2E Tests') {
             steps {
                 dir('frontend') {
@@ -280,7 +280,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build Backend') {
             steps {
                 dir('backend') {
@@ -288,7 +288,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Build Frontend') {
             steps {
                 dir('frontend') {
@@ -296,7 +296,7 @@ pipeline {
                 }
             }
         }
-        
+
         stage('Integration Tests') {
             steps {
                 sh 'docker-compose up -d'
@@ -304,7 +304,7 @@ pipeline {
                 sh 'docker-compose down'
             }
         }
-        
+
         stage('Deploy') {
             when {
                 branch 'main'
@@ -315,7 +315,7 @@ pipeline {
             }
         }
     }
-    
+
     post {
         always {
             publishTestResults testResultsPattern: '**/test-results.xml'
@@ -362,20 +362,20 @@ EXPOSE 80 8080
 export class JavaAngularSDK {
   private http = inject(HttpClient);
   private config = inject(JavaSDKConfig);
-  
+
   // Méthodes génériques pour communication Java
   async get<T>(endpoint: string): Promise<T> {
     return this.http.get<T>(`${this.config.baseUrl}${endpoint}`).toPromise();
   }
-  
+
   async post<T>(endpoint: string, data: any): Promise<T> {
     return this.http.post<T>(`${this.config.baseUrl}${endpoint}`, data).toPromise();
   }
-  
+
   async put<T>(endpoint: string, data: any): Promise<T> {
     return this.http.put<T>(`${this.config.baseUrl}${endpoint}`, data).toPromise();
   }
-  
+
   async delete(endpoint: string): Promise<void> {
     return this.http.delete(`${this.config.baseUrl}${endpoint}`).toPromise();
   }
@@ -402,7 +402,7 @@ export interface JavaSDKConfig {
 })
 export class ProductComponent {
   private sdk = inject(JavaAngularSDK);
-  
+
   async loadProducts() {
     const products = await this.sdk.get<Product[]>('/products');
     // Utilisation des produits
@@ -418,7 +418,7 @@ export class ProductComponent {
 export class JavaAngular5Analyzer extends Angular5Analyzer {
   async analyzeJavaIntegration(file: AnalyzedFile): Promise<MigrationIssue[]> {
     const issues: MigrationIssue[] = [];
-    
+
     // Détection des patterns Java spécifiques
     if (file.content.includes('@angular/http')) {
       issues.push({
@@ -428,7 +428,7 @@ export class JavaAngular5Analyzer extends Angular5Analyzer {
         suggestion: 'Remplacer @angular/http par @angular/common/http pour Java Spring Boot'
       });
     }
-    
+
     // Détection des endpoints Java
     const javaEndpoints = file.content.match(/http:\/\/localhost:8080\/api\/\w+/g);
     if (javaEndpoints) {
@@ -439,7 +439,7 @@ export class JavaAngular5Analyzer extends Angular5Analyzer {
         suggestion: 'Vérifier la compatibilité avec Spring Boot 3+'
       });
     }
-    
+
     return issues;
   }
 }
@@ -451,7 +451,7 @@ export class JavaAngular5Analyzer extends Angular5Analyzer {
 export class JavaAngularTransformer extends ModernizationTransformer {
   async transformJavaIntegration(file: AnalyzedFile): Promise<Transformation[]> {
     const transformations: Transformation[] = [];
-    
+
     // Migration des services Java
     if (file.content.includes('@angular/http')) {
       const newContent = file.content
@@ -459,7 +459,7 @@ export class JavaAngularTransformer extends ModernizationTransformer {
         .replace(/constructor\(private http: Http\)/g, 'constructor(private http: HttpClient)')
         .replace(/this\.http\.get\(/g, 'this.http.get<')
         .replace(/this\.http\.post\(/g, 'this.http.post<');
-      
+
       transformations.push({
         type: TransformationType.UPDATE_JAVA_INTEGRATION,
         description: 'Migration vers HttpClient pour Java Spring Boot',
@@ -468,7 +468,7 @@ export class JavaAngularTransformer extends ModernizationTransformer {
         status: TransformationStatus.PENDING
       });
     }
-    
+
     return transformations;
   }
 }
@@ -485,7 +485,7 @@ export class JavaAngularTransformer extends ModernizationTransformer {
 export class JavaApiService {
   private http = inject(HttpClient);
   private baseUrl = environment.javaApiUrl;
-  
+
   // Gestion des erreurs Java
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -495,7 +495,7 @@ export class JavaApiService {
     }
     return throwError(() => new Error('Erreur API Java'));
   }
-  
+
   // Endpoints avec retry pour Java
   getUsers(): Observable<User[]> {
     return this.http.get<User[]>(`${this.baseUrl}/users`).pipe(
@@ -529,12 +529,12 @@ export const environment = {
 })
 export class JavaMonitoringService {
   private http = inject(HttpClient);
-  
+
   // Métriques de performance
   trackApiCall(endpoint: string, duration: number) {
     console.log(`API Java ${endpoint}: ${duration}ms`);
   }
-  
+
   // Monitoring des erreurs Java
   trackJavaError(error: HttpErrorResponse) {
     console.error('Erreur Java:', {
