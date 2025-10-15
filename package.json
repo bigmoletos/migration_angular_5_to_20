@@ -38,6 +38,11 @@
     "rollback:phase3": "npm run rollback --workspace=phase-3-angular-12-to-16",
     "rollback:phase4": "npm run rollback --workspace=phase-4-angular-16-to-20",
     "orchestrate": "node tools/orchestrator/index.js",
+    "docs:generate": "node scripts/generate-docs.js",
+    "docs:generate:html": "node scripts/generate-docs.js --formats=html",
+    "docs:generate:markdown": "node scripts/generate-docs.js --formats=markdown",
+    "docs:generate:json": "node scripts/generate-docs.js --formats=json",
+    "docs:generate:full": "node scripts/generate-docs.js --formats=html,markdown,json --include-phases --include-diagrams",
     "demo": "node demo.js"
   },
   "keywords": [

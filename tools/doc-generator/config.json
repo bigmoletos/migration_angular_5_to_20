@@ -1,0 +1,184 @@
+{
+  "name": "Documentation Generator Configuration",
+  "version": "1.0.0",
+  "description": "Configuration pour le générateur de documentation automatique",
+
+  "defaults": {
+    "outputPath": "./docs/generated",
+    "formats": ["html", "markdown", "json"],
+    "includePhases": true,
+    "includeDiagrams": true,
+    "detailLevel": "comprehensive",
+    "verbose": true
+  },
+
+  "fileAnalysis": {
+    "supportedExtensions": [".ts", ".js", ".json", ".md", ".yml", ".yaml", ".html", ".css", ".scss"],
+    "ignorePatterns": [
+      "node_modules/**",
+      "dist/**",
+      "build/**",
+      "coverage/**",
+      "*.log",
+      "*.tmp",
+      ".git/**",
+      "*.spec.ts",
+      "*.test.ts"
+    ],
+    "maxFileSize": 10485760,
+    "maxFiles": 10000
+  },
+
+  "jsdoc": {
+    "extractComments": true,
+    "parseTags": true,
+    "includeExamples": true,
+    "includeTypes": true,
+    "includeParameters": true,
+    "includeReturnTypes": true
+  },
+
+  "statistics": {
+    "calculateComplexity": true,
+    "calculateMetrics": true,
+    "includeFileDistribution": true,
+    "includeLanguageDistribution": true,
+    "includeSizeAnalysis": true
+  },
+
+  "phases": {
+    "enabled": true,
+    "paths": [
+      "phase-1-angular-5-to-8",
+      "phase-2-angular-8-to-12",
+      "phase-3-angular-12-to-16",
+      "phase-4-angular-16-to-20"
+    ],
+    "includePhaseStats": true,
+    "includePhaseAPI": true,
+    "includePhaseFiles": true
+  },
+
+  "diagrams": {
+    "enabled": true,
+    "architecture": {
+      "enabled": true,
+      "format": "mermaid",
+      "includePhases": true,
+      "includeTechnologies": true,
+      "includeDependencies": true
+    },
+    "dependencies": {
+      "enabled": true,
+      "format": "mermaid",
+      "maxDepth": 3,
+      "includeExternal": true,
+      "includeInternal": true
+    },
+    "flow": {
+      "enabled": true,
+      "format": "mermaid",
+      "includeMigrationFlow": true,
+      "includeValidationFlow": true
+    }
+  },
+
+  "templates": {
+    "html": {
+      "theme": "default",
+      "includeNavigation": true,
+      "includeSearch": true,
+      "includeTOC": true,
+      "includeStats": true,
+      "includeRecommendations": true
+    },
+    "markdown": {
+      "includeTOC": true,
+      "includeStats": true,
+      "includeRecommendations": true,
+      "includeCodeBlocks": true,
+      "includeExamples": true
+    },
+    "json": {
+      "prettyPrint": true,
+      "includeMetadata": true,
+      "includeStats": true,
+      "includeRecommendations": true
+    }
+  },
+
+  "quality": {
+    "thresholds": {
+      "commentRatio": {
+        "min": 10,
+        "max": 50,
+        "recommended": 20
+      },
+      "fileSize": {
+        "max": 500,
+        "warning": 300
+      },
+      "complexity": {
+        "max": 10,
+        "warning": 7
+      },
+      "testCoverage": {
+        "min": 80,
+        "recommended": 90
+      }
+    },
+    "recommendations": {
+      "enabled": true,
+      "includeCodeQuality": true,
+      "includePerformance": true,
+      "includeMaintainability": true,
+      "includeSecurity": true
+    }
+  },
+
+  "java": {
+    "enabled": true,
+    "detectSpringBoot": true,
+    "detectMaven": true,
+    "detectGradle": true,
+    "includeJavaAPIs": true,
+    "includeJavaConfigs": true,
+    "includeJavaTests": true
+  },
+
+  "output": {
+    "createIndex": true,
+    "createSitemap": true,
+    "createManifest": true,
+    "compressAssets": false,
+    "minifyHTML": false,
+    "minifyCSS": false,
+    "minifyJS": false
+  },
+
+  "logging": {
+    "level": "info",
+    "includeTimestamps": true,
+    "includeContext": true,
+    "includeProgress": true,
+    "saveLogs": true,
+    "logFile": "./docs/generated/generation.log"
+  },
+
+  "performance": {
+    "parallelProcessing": true,
+    "maxConcurrency": 4,
+    "cacheResults": true,
+    "cacheTTL": 3600,
+    "optimizeMemory": true
+  },
+
+  "validation": {
+    "validateOutput": true,
+    "checkLinks": true,
+    "checkImages": true,
+    "validateHTML": true,
+    "validateMarkdown": true,
+    "validateJSON": true
+  }
+}

@@ -1,24 +1,123 @@
 /**
  * Types partagés pour toutes les phases de migration Angular
+ *
+ * Ce fichier contient toutes les interfaces, types et énumérations utilisées
+ * dans l'ensemble du projet de migration Angular 5 → 20.
+ *
+ * Organisation :
+ * - Types de base pour la migration
+ * - Types pour l'analyse des fichiers
+ * - Types pour les transformations
+ * - Types pour les rapports
+ * - Types pour la validation
+ * - Types pour les phases
+ * - Types pour l'intégration Java
+ * - Types pour les métriques
+ * - Types pour les logs et erreurs
+ * - Types pour les configurations
+ *
+ * @author Migration Angular Team
+ * @version 1.0.0
+ * @since 2024-01-01
  */
 
-// Types de base
+// ============================================================================
+// TYPES DE BASE POUR LA MIGRATION
+// ============================================================================
+
+/**
+ * Options de configuration pour une migration
+ *
+ * Cette interface définit tous les paramètres configurables
+ * pour l'exécution d'une migration Angular.
+ *
+ * @interface MigrationOptions
+ * @property {string} projectPath - Chemin absolu vers le projet à migrer
+ * @property {string} [targetVersion] - Version cible d'Angular (ex: "8.0.0")
+ * @property {string} [phase] - Nom de la phase de migration
+ * @property {boolean} [autoApply] - Appliquer automatiquement les transformations
+ * @property {boolean} [backup] - Créer des backups avant migration
+ * @property {boolean} [validate] - Valider le résultat après migration
+ * @property {boolean} [verbose] - Mode verbeux pour les logs
+ * @property {boolean} [rollback] - Activer le rollback automatique en cas d'erreur
+ *
+ * @example
+ * ```typescript
+ * const options: MigrationOptions = {
+ *   projectPath: '/path/to/angular-project',
+ *   targetVersion: '8.0.0',
+ *   phase: 'Phase 1: Angular 5 → 8',
+ *   autoApply: true,
+ *   backup: true,
+ *   validate: true,
+ *   verbose: false,
+ *   rollback: true
+ * };
+ * ```
+ */
 export interface MigrationOptions {
+  /** Chemin absolu vers le projet Angular à migrer */
   projectPath: string;
+  /** Version cible d'Angular (ex: "8.0.0", "12.0.0", "16.0.0", "20.0.0") */
   targetVersion?: string;
+  /** Nom de la phase de migration (ex: "Phase 1: Angular 5 → 8") */
   phase?: string;
+  /** Appliquer automatiquement les transformations détectées */
   autoApply?: boolean;
+  /** Créer des backups Git avant chaque transformation */
   backup?: boolean;
+  /** Valider le résultat avec des tests après migration */
   validate?: boolean;
+  /** Mode verbeux pour afficher tous les logs de détail */
   verbose?: boolean;
+  /** Activer le rollback automatique en cas d'échec */
   rollback?: boolean;
 }
 
+/**
+ * Résultat d'une migration Angular
+ *
+ * Cette interface contient tous les résultats et métadonnées
+ * d'une migration Angular, incluant le statut, les phases exécutées,
+ * les rapports générés et les statistiques.
+ *
+ * @interface MigrationResult
+ * @property {boolean} success - Indique si la migration s'est terminée avec succès
+ * @property {PhaseResult[]} [phases] - Résultats détaillés de chaque phase
+ * @property {string} [report] - Chemin vers le rapport de migration généré
+ * @property {number} [totalDuration] - Durée totale de la migration en millisecondes
+ * @property {MigrationSummary} [summary] - Résumé statistique de la migration
+ *
+ * @example
+ * ```typescript
+ * const result: MigrationResult = {
+ *   success: true,
+ *   phases: [
+ *     { phase: 'Phase 1', success: true, duration: 120000 },
+ *     { phase: 'Phase 2', success: true, duration: 80000 }
+ *   ],
+ *   report: './reports/migration-report.html',
+ *   totalDuration: 200000,
+ *   summary: {
+ *     totalPhases: 2,
+ *     successfulPhases: 2,
+ *     failedPhases: 0,
+ *     warnings: 3,
+ *     errors: 0
+ *   }
+ * };
+ * ```
+ */
 export interface MigrationResult {
+  /** Indique si la migration s'est terminée avec succès */
   success: boolean;
+  /** Résultats détaillés de chaque phase de migration exécutée */
   phases?: PhaseResult[];
+  /** Chemin vers le rapport de migration généré (HTML, Markdown, JSON) */
   report?: string;
+  /** Durée totale de la migration en millisecondes */
   totalDuration?: number;
+  /** Résumé statistique de la migration avec compteurs */
   summary?: MigrationSummary;
 }
 

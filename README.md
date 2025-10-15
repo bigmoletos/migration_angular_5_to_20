@@ -159,6 +159,10 @@ npm run validate:phase4    # Validation Phase 4
 - 📖 [Évolution Angular 5 → 20](docs/ANGULAR_EVOLUTION_5_TO_20.md)
 - 📖 [Guide Complet Angular](docs/ANGULAR_COMPLETE_GUIDE.md)
 
+### **Documentation Automatique**
+- 📖 [Guide du Générateur de Documentation](docs/DOCUMENTATION_GENERATOR_GUIDE.md)
+- 📚 [Documentation Générée](docs/generated/) - Générée automatiquement
+
 ### **Contribution et Organisation**
 - 📖 [Guide de Contribution](docs/CONTRIBUTING.md)
 - 📖 [Organisation des Branches](docs/BRANCHES.md)
@@ -178,6 +182,15 @@ npm run validate:phase4    # Validation Phase 4
 - ✅ **Migration des tests** Protractor → Cypress
 - ✅ **Optimisation Jenkins** pour Java + Angular
 - ✅ **SDK personnalisé** pour les équipes produits
+
+### **Générateur de Documentation**
+- ✅ **Extraction automatique** des commentaires JSDoc
+- ✅ **Documentation API** complète (classes, interfaces, fonctions)
+- ✅ **Statistiques du projet** et métriques de qualité
+- ✅ **Diagrammes d'architecture** (Mermaid)
+- ✅ **Documentation par phase** de migration
+- ✅ **Rapports multi-formats** (HTML, Markdown, JSON)
+- ✅ **Recommandations d'amélioration** automatiques
 
 ### **Qualité et Sécurité**
 - ✅ **Tests complets** pour chaque phase
@@ -251,6 +264,16 @@ npm run rollback:phase1
 
 # Rollback complet
 npm run rollback:full
+```
+
+### **Scripts de Documentation**
+```bash
+# Génération de documentation
+npm run docs:generate        # Documentation complète
+npm run docs:generate:html   # Documentation HTML uniquement
+npm run docs:generate:markdown # Documentation Markdown uniquement
+npm run docs:generate:json   # Documentation JSON uniquement
+npm run docs:generate:full   # Documentation complète avec phases et diagrammes
 ```
 
 ### **Backup et Restauration**
